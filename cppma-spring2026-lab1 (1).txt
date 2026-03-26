@@ -1,0 +1,95 @@
+===== PAGE 1 =====
+MMIS C++ pour les mathématiques appliquées Grenoble INP
+Introduction
+Le but de cette session est de se familiariser avec les bases d’un environnement C++ pour le calcul
+scientiﬁque. Tous les outils utilisés sont libres et peuvent être installés sur des machines personnelles.
+Vous êtes libres d’utiliser l’environnement de développement de votre choix.
+1 Débogage
+Le programme fourni se compose de quatre fonctions :
+▶ initialization : construit une matrice carrée à partir de sa taille
+▶ fill_vectors : remplit un vecteur de dimension =, donné en entrée, avec des nombres
+aléatoires compris entre −10 et 10.
+▶ print_matrix : aﬃche la matrice à partir de sa taille.
+▶ trace : réalise la somme des éléments diagonaux de la matrice.
+Le code proposé utilise les bases du C et quelques éléments de C++ vus lors du premier cours. Le
+CMakeLists.txt proposé permet de compiler et faire l’édition de lien du ﬁchier trace.cxx.
+Pour l’utiliser
+1. Créer un répertoire build.
+2. Se placer dans le répertoire build.
+3. Générer les Makefile avec la commande cmake ...
+4. Créer l’exécutable avec la commande make.
+Question 1.
+Identiﬁer les problèmes de ce code.
+Question 2.
+Corriger les diﬀérents problèmes.
+Question 3.
+Faire un proﬁling du code.
+Question 4.
+Proposer une modiﬁcation du code qui peut améliorer les performances.
+2 Résolution d’EDO
+Dans cette partie, nous allons implémenter des méthodes de résolution d’équations diﬀérentielles
+ordinaires (EDO) du premier ordre. C’est un problème fondamental en calcul scientiﬁque avec de
+nombreuses applications (dynamique, physique, biologie, ﬁnance, etc.).
+2.0.1 Formulation du problème
+On considère le problème de Cauchy :
+3D
+3G = i (G, D (G)) sur  = [0, 1] (1)
+D(0) = D0 (2)
+1 / 3
+
+===== PAGE 2 =====
+MMIS C++ pour les mathématiques appliquées Grenoble INP
+avec i ∈ C 0 ( × R, R),  ⊂ R.
+On suppose l’existence et l’unicité d’une solution D pour G ∈  (conditions de Cauchy-Lipschitz
+vériﬁées).
+2.0.2 Discrétisation
+Pour ℎ > 0 (le pas de temps), on déﬁnit :
+▶ G= = 0 + =ℎ, pour = = 0, . . . , # ℎ : les nuds de discrétisation
+▶ = = [G=, G=+1] : les sous-intervalles de longueur ℎ
+▶ D= ≈ D(G=) : l’approximation numérique de la solution au nud G=
+L’objectif est de calculer (D=)==0,...,#ℎ qui approche la solution exacte (D(G=))==0,...,#ℎ .
+2.1 Méthode d’Euler explicite
+2.1.1 Principe
+La méthode d’Euler explicite utilise l’approximation par diﬀérences ﬁnies :
+D′(G=) ≈ D(G=+1) − D(G=)
+ℎ (3)
+En remplaçant dans l’équation ( 1), on obtient le schéma numérique :
+D=+1 = D= + ℎ · i (G=, D=) (4)
+2.1.2 Cas test
+On considère l’EDO :
+3D
+3G = 2GD (G), G ∈  = [0, 1] (5)
+D(0) = 1 (6)
+Solution analytique :Cette EDO a une solution analytique connue : D(G) = 4G2
+Écrire, compiler et exécuter un programme écrit en C++ qui calcule la solution de l’équation
+d’Euler explicite. La fonction utilise en paramètre d’entrée le nombre d’itérations, la condition initiale
+et la fonction i.
+2.2 Méthode d’Euler implicite
+2.2.1 Principe
+La méthode d’Euler implicite utilise l’approximation décalée :
+D′(G=+1) ≈ D(G=+1) − D(G=)
+ℎ (7)
+Le schéma numérique devient :
+D=+1 = D= + ℎ · i (G=+1, D=+1) (8)
+Propriétés :
+▶ Implicite : D=+1 apparaît des deux côtés ⇒ nécessite la résolution d’une équation (non-linéaire
+en général)
+▶ Ordre 1 : même ordre que Euler explicite
+▶ Stabilité : inconditionnellement stable (A-stable) ⇒ meilleur pour les problèmes raides
+2 / 3
+
+===== PAGE 3 =====
+MMIS C++ pour les mathématiques appliquées Grenoble INP
+2.3 Application à un problème raide
+Un problème est dit raide quand il contient des phénomènes à échelles de temps très diﬀérentes,
+nécessitant un pas ℎ très petit pour la stabilité.
+2.3.1 EDO raide
+On considère maintenant :
+3D (G)
+3G = −50(D(G) − cos(G)), G ∈ [ 0, 2] (9)
+D(0) = 0 (10)
+d
+2.4 Résolution
+Appliquer la méthode d’Euler explicite et la méthode d’Euler implicite à l’équation ( 9).
+3 / 3
+

@@ -1,0 +1,54 @@
+===== PAGE 1 =====
+MMIS C++ pour les mathématiques appliquées Grenoble INP
+Lab 3 : utilisation des opérateurs
+Le but de cette session est de se familiariser avec les notions d’opérateurs.
+1 Enrichissement des structures de données
+Dans le Lab 2 , nous avons mis en place un algorithme de itératif de déplacement de particules
+soumis à l’interaction gravitationnelle.
+Cette interaction s’exprime sous la forme d’opérations algébriques et arithmétiques simples.
+Dans la classe Particule déﬁnie la dernière fois, nous avons déclarer diﬀérents champs des-
+criptifs de la particule.
+Nous allons remplacer la structure de donnée sous-jacente par une classe propre ayant des
+propriétés arithmétiques.
+1.1 Création d’une classe vecteur
+Question 1.
+Créer une classe Vecteur qui permette de manipuler un vecteur de dimension 3.
+Question 2.
+Implémenter les constructeurs et opérateurs nécessaires. La classe doit être auto suﬃsante.
+Vous êtes libre sur la manière de stocker les valeurs du vecteur.
+Question 3.
+Créer des tests qui permettent de vériﬁer chacune des méthodes.
+1.2 Modiﬁcation de la classe particule
+Question 4.
+Modiﬁer la classe Particule de la séance précédente pour utiliser la classe vecteur créée.
+1.3 Univers des particules
+La simulation se compose d’une collection de particules. Il va donc être nécessaire de les garder
+en mémoire.
+Dans la suite, nous allons insérer ces particules au sein d’un "univers". Cette univers possède
+une dimension (1D, 2D ou 3D), un nombre de particules, et une collection de particule.
+Dans un premier temps, nous allons considérer des particules uniformes : elles auront toutes la
+même vitesse.
+La classe Univers devra permettre de faire avancer les particules, de calculs les forces d’in-
+teractions, de modiﬁer les vitesses et d’aﬃcher l’état de l’univers, i.e. les positions des particules à
+chaque instant.
+La méthode d’évolution sera une méthode de la classe.
+Question 5.
+Créer un classe Univers .
+1 / 2
+
+===== PAGE 2 =====
+MMIS C++ pour les mathématiques appliquées Grenoble INP
+Question 6.
+Créer un Univers qui contiennent (25)3 particules, uniformément distribuées sur le cube [0; 1] ×
+[0; 1] × [ 0; 1].
+Question 7.
+Tester les performances de votre implémentation et de votre conteneur en insertion.
+Question 8.
+Tester votre implémentation dans le calcul des interactions. Faites varier le nombre de particules.
+On pourra par exemple prendre (2: )3, pour : = 3 . . .7.
+Question 9.
+Proposer une modiﬁcation simple qui permet de diviser le temps de calcul par 2.
+Question 10.
+Quelle(s) autre(s) simpliﬁcations pourraient-on faire ?
+2 / 2
+

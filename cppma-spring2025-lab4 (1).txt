@@ -1,0 +1,163 @@
+===== PAGE 1 =====
+MMIS C++ pour les mathématiques appliquées Grenoble INP
+Découpage de l’espace
+Le but de cette session est de rendre possible le passage à l’échelle.
+Vous aller devoir également réﬂéchir à une stratégie de vériﬁcation et validation de vos dévelop-
+pements.
+Dans la session précédente, vous avez pu évaluer le nombre de particules maximal qui pouvaient
+interagir.
+Nous souhaitons également utiliser un potentiel d’interaction diﬀérent. Dans les séances sui-
+vantes, nous allons nous intéresser aux interactions entre particules chargées.
+L’interaction entre deux particules peut être décrit, par exemple, par le potentiel de Lennard-
+Jones
+* (A8 9 ) = 4 · Y
+(( f
+A8 9
+)12
+−
+( f
+A8 9
+)6)
+= 4 · Y
+( f
+A8 9
+)6
+·
+(( f
+A8 9
+)6
+− 1
+)
+avec Y correspond à la profondeur du potentiel, i.e. la stabilité, et f correspond à l’interaction
+avec l’axe nul du potentiel. On prendra dans un premier temps Y = 1 et f = 1.
+Question 1.
+Représenter le potentiel de Lennard-Jones pour 1 système à deux particules en fonction de la distance
+A.
+Pour # particules G1, . . . , G =, le potentiel global est déﬁni par une double somme
++ (G1, . . . G # ) =
+#Õ
+8=1
+#Õ
+9=8+1
+* (A8 9 )
+= 4 · Y
+#Õ
+8=1
+#Õ
+9=1+1
+( f
+A8 9
+)6
+·
+(( f
+A8 9
+)6
+− 1
+)
+Ce potentiel global permet de dériver les forces d’interactions qui seront utilisées dans la simu-
+lation
+Fi = −∇G8 + (G8, . . . , G =)
+= 24 · Y
+#Õ
+8=1,8≠9
+1
+A2
+8 9
+·
+( f
+A8 9
+)6
+·
+(
+1 − 2
+( f
+A8 9
+)6)
+rij
+Étant donné la symétrie des termes de forces, il sera préférable de considérer la force comme la
+décomposition en forces élémentaires.
+8 =
+#Õ
+9=1,9 ≠1
+8 9
+C’est cette force que nous utiliserons dans la bibliothèque (en remplacement ou complément de la
+force gravitationnelle).
+Le potentiel d’interaction tracé dans la première question montre qu’à partir d’une certaine
+distance, celui peut être négligé. Nous allons utiliser cette propriété pour limiter la complexité du
+calcul du potentiel.
+1 / 4
+
+===== PAGE 2 =====
+MMIS C++ pour les mathématiques appliquées Grenoble INP
+Soit A2DC la distance à partir de laquelle le potentiel est négligé
+* (A8 9 ) =
+ 
+
+4 · Y
+(( f
+A8 9
+)12
+−
+( f
+A8 9
+)6)
+A8 9 ≤ A2DC
+0 A8 9 > A2DC
+1 Création d’un Univers
+Les particules n’évoluent pas librement dans l’espace, mais sont soumises à des contraintes :
+constantes physiques, dimension (1, 2 ou 3), longueurs caractéristiques ( !3 ), un rayon de coupe
+(A2DC ).
+L’ensemble de ces éléments est décrit par une classe Univers .
+Question 2.
+Créer une classe Univers .
+Pour faciliter le repérage des particules dans l’espace, nous allons le mailler par une grille tenso-
+rielle de cubes. Le nombre de cube dans chaque direction ( =23 ) dépend de la longueur caractéristique
+de la direction et de la taille de la cellule
+=23 =
+⌊ !3
+A2DC
+⌋
+.
+Univers devra donc contenir une liste de cellule. Chacune de ces cellule contient des particules
+et possède des cellules voisines (3 en 1D, 9 en 2D, 27 en 3D).
+Question 3.
+Ajouter les éléments nécessaire à la classe Univers . Initialiser.
+2 Calcul des potentiels
+Le maillage construit permet de limiter le parcours des particules. Au lieu de calculer la distance
+entre deux particules, on calcule la distance entre une particule et le centre d’une cellule. Si la cellule
+se trouve dans le voisinage, alors on examine les particules de cette cellule et on calcule le potentiel,
+si le rayon de coupure est respecté. Sinon, on ignore la cellule.
+Question 4.
+Modiﬁer l’algorithme et l’implémentation du calcul de force pour prendre en compte cette approche.
+2 / 4
+
+===== PAGE 3 =====
+MMIS C++ pour les mathématiques appliquées Grenoble INP
+Avec cette approche, il est important de positionner les particules dans la bonne cellule. A la ﬁn
+de chaque itération en temps, on mets donc à jour la position logique des particules.
+Question 5.
+Écrire la fonction de mise à jour des cellules.
+Pour contrôler les résultats, on pourra dans un premier temps conserver la force gravitationnelle
+des sessions précédentes et vériﬁer que les orbites sont correctes.
+3 Application : collision de deux objets
+On souhaite simuler la collision entre deux objets comme sur la ﬁgure
+Ce qui permettra d’obtenir les résultats de simulation suivant, à l’instant initial
+et en ﬁn de simulation.
+3 / 4
+
+===== PAGE 4 =====
+MMIS C++ pour les mathématiques appliquées Grenoble INP
+Aﬁn de réaliser cette simulation, on considère les paramètres suivants :
+!1 = 250, ! 2 = 40,
+Y = 5, f = 1,
+< = 1, E = (0, 10),
+#1 = 1600, # 2 = 6400,
+A2DC = 2.5f, XC = 0.00005
+avec E la vitesse initiale des particules du carré rouge.
+Le carré contient 40 × 40 particules équidistribuées et le rectangle contient 160 × 40 particules
+équidistribuées. La distance entre les particules est 21/6
+f .
+Question 6.
+Réaliser la simulation jusqu’à C = 19.5.
+4 / 4
+
