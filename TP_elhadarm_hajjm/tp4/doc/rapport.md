@@ -7,6 +7,7 @@
 - Ajouter un maillage en cellules pour reduire le cout.
 - Mettre a jour les cellules a chaque iteration.
 - Simuler la collision de deux objets.
+- Garder uniquement les codes essentiels demandes.
 
 ## Reponses aux questions
 

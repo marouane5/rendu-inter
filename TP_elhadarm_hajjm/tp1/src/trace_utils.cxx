@@ -41,29 +41,3 @@ double trace_matrix(const Matrix &matrix) {
   }
   return sum;
 }
-
-std::vector<double> initialize_matrix_flat(std::size_t n) {
-  return std::vector<double>(n * n, 0.0);
-}
-
-void fill_matrix_flat(std::vector<double> &matrix, std::size_t n, unsigned int seed) {
-  std::mt19937 gen(seed);
-  std::uniform_real_distribution<double> dist(-10.0, 10.0);
-  for (std::size_t i = 0; i < n; ++i) {
-    for (std::size_t j = 0; j < n; ++j) {
-      matrix[i * n + j] = dist(gen);
-    }
-  }
-}
-
-double trace_matrix_flat(const std::vector<double> &matrix, std::size_t n) {
-  if (matrix.size() != n * n) {
-    throw std::runtime_error("Bad matrix size");
-  }
-
-  double sum = 0.0;
-  for (std::size_t i = 0; i < n; ++i) {
-    sum += matrix[i * n + i];
-  }
-  return sum;
-}

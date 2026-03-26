@@ -3,9 +3,8 @@
 ## Objectifs du TP
 
 - Corriger un code C++ simple de calcul de trace.
-- Mesurer les performances avec un outil de profiling.
-- Proposer une version plus rapide.
 - Implementer Euler explicite et Euler implicite pour des EDO du premier ordre.
+- Rester sur une base minimale: 2 codes (`trace corrige` et `ode`).
 
 ## Partie 1 - Debogage
 
@@ -37,30 +36,23 @@ Commande:
 
 ### Question 3 - Profiling
 
-Un executable dedie est fourni: `tp1_trace_profile`.
-
-Compilation + profiling:
+Le profiling se fait sur le code `tp1_trace` (pas de code supplementaire).
+Exemple simple:
 
 ```bash
-cmake -S . -B build
-cmake --build build -j
-./build/tp1/tp1_trace_profile 4000
-gprof ./build/tp1/tp1_trace_profile gmon.out -b
+g++ -std=c++17 -pg tp1/src/main_trace.cxx tp1/src/trace_utils.cxx -I tp1/include -o tp1_trace_pg
+./tp1_trace_pg 4000
+gprof ./tp1_trace_pg gmon.out -b
 ```
 
 Le gprof permet d identifier les zones de cout (remplissage et parcours de matrice).
 
 ### Question 4 - Modification qui ameliore les performances
 
-Version optimisee fournie dans `tp1/src/main_trace_fast.cxx`:
-- stockage contigu (`std::vector<double>`) au lieu de `vector<vector<...>>`
-- meilleur acces cache pour la trace
-
-Commande:
-
-```bash
-./build/tp1/tp1_trace_fast 4000
-```
+Proposition simple (sans ajouter un 3eme code):
+- passer a un stockage contigu (`std::vector<double>`)
+- limiter les affichages console pour les grandes tailles
+- eviter de recalculer des tailles dans les boucles
 
 ## Partie 2 - Resolution d EDO
 
@@ -85,8 +77,6 @@ Implementations:
 - Euler explicite general
 - Euler implicite lineaire avec formule fermee
 
-Le programme compare les deux methodes et ecrit les resultats dans `tp1_ode_results.csv`.
-
 Commande:
 
 ```bash
@@ -97,15 +87,13 @@ Commande:
 
 - Code simple et lisible, sans mecanismes avances inutiles.
 - Fonctions separees pour faciliter le test et la lecture.
-- Variante optimisee minimale (memoire contigue) pour rester dans l esprit du TP.
-- Sortie CSV pour verifier rapidement les resultats avec un tableur ou script.
+- Perimetre volontairement minimal: seulement `tp1_trace` et `tp1_ode`.
 
 ## Synthese
 
 Ce TP couvre les bases utiles pour la suite:
 - correction de bugs C/C++
-- mesure de performance
-- premiere optimisation simple
+- mesure de performance (sur le code corrige)
 - implementation de deux schemas numeriques standard pour EDO.
 
 Le code reste volontairement simple pour etre facile a presenter et modifier.

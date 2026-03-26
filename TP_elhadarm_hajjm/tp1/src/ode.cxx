@@ -31,43 +31,6 @@ OdeResult explicit_euler(double t0, double t1, int n, double y0, const OdeFuncti
   return result;
 }
 
-OdeResult implicit_euler_fixed_point(
-  double t0,
-  double t1,
-  int n,
-  double y0,
-  const OdeFunction &f,
-  int max_iter,
-  double tol
-) {
-  const double h = step_size(t0, t1, n);
-  OdeResult result;
-  result.t.resize(static_cast<std::size_t>(n) + 1U);
-  result.y.resize(static_cast<std::size_t>(n) + 1U);
-  result.t[0] = t0;
-  result.y[0] = y0;
-
-  for (int i = 0; i < n; ++i) {
-    const std::size_t k = static_cast<std::size_t>(i);
-    const double t_next = result.t[k] + h;
-    double y_next = result.y[k];
-
-    for (int iter = 0; iter < max_iter; ++iter) {
-      const double candidate = result.y[k] + h * f(t_next, y_next);
-      if (std::abs(candidate - y_next) < tol) {
-        y_next = candidate;
-        break;
-      }
-      y_next = candidate;
-    }
-
-    result.t[k + 1U] = t_next;
-    result.y[k + 1U] = y_next;
-  }
-
-  return result;
-}
-
 OdeResult implicit_euler_linear(
   double t0,
   double t1,

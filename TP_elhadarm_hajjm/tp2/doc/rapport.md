@@ -6,6 +6,7 @@
 - Comparer des conteneurs standards C++ en perf.
 - Implementer une simulation gravitationnelle avec Stomer-Verlet.
 - Encapsuler les donnees avec methodes d acces.
+- Garder uniquement les codes essentiels du sujet.
 
 ## Reponses aux questions
 

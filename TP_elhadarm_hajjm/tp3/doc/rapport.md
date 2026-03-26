@@ -7,6 +7,7 @@
 - Integrer `Vecteur` dans `Particule`.
 - Construire une classe `Univers` pour stocker et faire evoluer les particules.
 - Mesurer les performances insertion et interactions.
+- Garder uniquement les elements essentiels du sujet.
 
 ## Reponses aux questions
 
